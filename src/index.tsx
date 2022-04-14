@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
-import { newsApi } from "./api/NewsApi";
+import { newsApi } from "./api/ArticlesApi";
 
 ReactDOM.render(
   <React.StrictMode>

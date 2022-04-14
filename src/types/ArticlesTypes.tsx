@@ -1,4 +1,5 @@
 export type Article = {
+  objectID: number;
   author: string;
   title: string;
   num_comments: number;
@@ -8,3 +9,5 @@ export type Article = {
 export type SearchType = {
   hits: Article[];
 };
+
+export type SingleArticleType = {};

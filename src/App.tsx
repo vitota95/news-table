@@ -1,4 +1,4 @@
-import { NewsTable } from "./features/NewsTable";
+import { ArticlesTable } from "./features/ArticlesTable";
 import { ChakraProvider, Heading, VStack } from "@chakra-ui/react";
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
     <ChakraProvider>
       <VStack>
         <Heading>News article list</Heading>
-        <NewsTable />
+        <ArticlesTable />
       </VStack>
     </ChakraProvider>
   );

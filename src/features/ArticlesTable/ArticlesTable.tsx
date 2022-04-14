@@ -10,9 +10,9 @@ import {
   Link,
   Button,
 } from "@chakra-ui/react";
-import { useGetNewsQuery } from "../../api/NewsApi";
+import { useGetArticlesQuery } from "../../api/ArticlesApi";
 
-export function NewsTable() {
+export function ArticlesTable() {
   const {
     data: search,
     isLoading,
@@ -20,9 +20,10 @@ export function NewsTable() {
     isSuccess,
     isError,
     error,
-  } = useGetNewsQuery("");
+  } = useGetArticlesQuery("");
 
   console.log(search);
+
   return (
     <TableContainer>
       <Table variant="striped" colorScheme="teal">
@@ -37,9 +38,10 @@ export function NewsTable() {
         </Thead>
         {isSuccess && (
           <Tbody>
-            {search?.hits?.map((article) => (
+            {console.log("aqui")}
+            {search?.hits?.map((article, index) => (
               <>
-                <Tr>
+                <Tr key={index}>
                   <Td>{article.author}</Td>
                   <Td>{article.title}</Td>
                   <Td>{article.num_comments}</Td>
