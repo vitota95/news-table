@@ -8,9 +8,21 @@ import {
   Tbody,
   Td,
   Link,
+  Button,
 } from "@chakra-ui/react";
+import { useGetNewsQuery } from "../../api/NewsApi";
 
 export function NewsTable() {
+  const {
+    data: search,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    error,
+  } = useGetNewsQuery("");
+
+  console.log(search);
   return (
     <TableContainer>
       <Table variant="striped" colorScheme="teal">
@@ -23,34 +35,24 @@ export function NewsTable() {
             <Th>Url</Th>
           </Tr>
         </Thead>
-        <Tbody>
-          <Tr
-            onClick={() => {
-              console.log("click");
-            }}
-            cursor="pointer"
-          >
-            <Td>Merlin</Td>
-            <Td>Arthurs sword</Td>
-            <Td>100</Td>
-            <Td>
-              <Link>Go to Url</Link>
-            </Td>
-          </Tr>
-          <Tr
-            onClick={() => {
-              console.log("click");
-            }}
-            cursor="pointer"
-          >
-            <Td>Merlin</Td>
-            <Td>Arthurs sword</Td>
-            <Td>100</Td>
-            <Td>
-              <Link>Go to Url</Link>
-            </Td>
-          </Tr>
-        </Tbody>
+        {isSuccess && (
+          <Tbody>
+            {search?.hits?.map((article) => (
+              <>
+                <Tr>
+                  <Td>{article.author}</Td>
+                  <Td>{article.title}</Td>
+                  <Td>{article.num_comments}</Td>
+                  <Td>
+                    <Button>
+                      <Link href={article.url}>Link to article</Link>
+                    </Button>
+                  </Td>
+                </Tr>
+              </>
+            ))}
+          </Tbody>
+        )}
       </Table>
     </TableContainer>
   );
