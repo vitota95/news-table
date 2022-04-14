@@ -1,9 +1,12 @@
 export type Article = {
-  objectID: number;
+  objectID: string;
   author: string;
   title: string;
   num_comments: number;
   url: string;
+  created_at: string;
+  type: string;
+  points: number;
 };
 
 export type SearchType = {
