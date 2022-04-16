@@ -20,24 +20,22 @@ import { SearchInput } from "../SearchInput";
 
 export function ArticlesTable() {
   const [searchString, setSearchString] = useState("");
+  const [pageOffset, setPageOffset] = useState(0);
+  const [articles, setArticles] = useState<Article[]>([]);
 
   const makeQuery = () => {
-    return `query="${searchString}"`;
+    return `query="${searchString}"&page=${pageOffset}`;
   };
 
-  const {
-    data: search,
-    isLoading,
-    isFetching,
-    isSuccess,
-    isError,
-    error,
-    refetch,
-  } = useGetArticlesQuery(makeQuery());
+  const { data: search, isLoading, refetch } = useGetArticlesQuery(makeQuery());
 
   useEffect(() => {
     searchString && refetch();
-  }, [refetch, searchString]);
+  }, [refetch, searchString, pageOffset]);
+
+  useEffect(() => {
+    search?.hits && setArticles([...articles, ...search?.hits]);
+  }, [search]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedArticle, setSelectedArticle] = useState<Article>();
@@ -48,7 +46,15 @@ export function ArticlesTable() {
         <TableContainer>
           <SearchInput onChange={(text) => setSearchString(text)}></SearchInput>
           <Table variant="striped" colorScheme="teal">
-            <TableCaption>News list</TableCaption>
+            <TableCaption>
+              <Button
+                onClick={() => {
+                  setPageOffset(pageOffset + 1);
+                }}
+              >
+                Load more articles
+              </Button>
+            </TableCaption>
             <Thead>
               <Tr>
                 <Th>Author</Th>
@@ -59,7 +65,7 @@ export function ArticlesTable() {
             </Thead>
             {!isLoading && (
               <Tbody>
-                {search?.hits?.map((article, index) => (
+                {articles.map((article, index) => (
                   <>
                     <Tr
                       key={index}
