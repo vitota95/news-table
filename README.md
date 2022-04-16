@@ -1,5 +1,8 @@
 # News-Table
 
+This project displays a table of articles, it includes search functionality.
+A load more articles button and a detail view modal.
+
 To run the project use the following scripts.
 
 ## Available Scripts
